@@ -5,7 +5,9 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
         diode-direction = "row2col";
+
         row-gpios
             = <&gpio0 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -13,6 +15,7 @@
             , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
+
         col-gpios
             = <&gpio0 31 GPIO_ACTIVE_HIGH>
             , <&gpio0 29 GPIO_ACTIVE_HIGH>
@@ -31,15 +34,18 @@
             ;
     };
 
-    encoder: encoder {
+    main_encoder: encoder {
         compatible = "alps,ec11";
+        label = "ENCODER";
         a-gpios = <&gpio1 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         steps = <80>;
+        status = "okay";
     };
 
     sensors {
         compatible = "zmk,keymap-sensors";
-        sensors = <&encoder>;
+        sensors = <&main_encoder>;
+        triggers-per-rotation = <20>;
     };
 };
